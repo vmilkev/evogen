@@ -103,7 +103,7 @@ namespace evo
 
             size_t i_adj_effects = 0;
 
-            for (auto i = 0; i < n_trait; i++)
+            for (size_t i = 0; i < n_trait; i++)
             {
                 int trait_obs_id = model.observation_trait[i];
 
@@ -115,7 +115,7 @@ namespace evo
 
                 std::vector<int> trait_levels;
 
-                for (auto j = 0; j < n_trait_effects; j++)
+                for (size_t j = 0; j < n_trait_effects; j++)
                 {
                     matrix<size_t> shape = model.effects[trait_eff_ids[j]].shape();
 
@@ -172,7 +172,7 @@ namespace evo
                 }
                 else
                 {
-                    for (auto i = 0; i < n_trait; i++)
+                    for (size_t i = 0; i < n_trait; i++)
                     {
                         matrix<int> trait_eff_ids = model.effects_trait[i];
                         construct_union_z(trait_eff_ids, true);
@@ -255,7 +255,7 @@ namespace evo
 
             z.transpose();
 
-            for (auto i = 1; i < eff_ids.size(); i++)
+            for (size_t i = 1; i < eff_ids.size(); i++)
             {
                 matrix<float> eff = model.effects[eff_ids[i]].get_float();
 
@@ -301,7 +301,7 @@ namespace evo
 
             eff.push_back(model.effects[eff_ids[0]]); // very first effect
 
-            for (auto i = 1; i < eff_ids.size(); i++)
+            for (size_t i = 1; i < eff_ids.size(); i++)
             {
                 eff.push_back(model.effects[eff_ids[i]]);
             }
@@ -345,7 +345,7 @@ namespace evo
 
                 e.clear();
 
-                for (auto i = 1; i < eff_ids.size(); i++)
+                for (size_t i = 1; i < eff_ids.size(); i++)
                 {
                     e = model.effects[eff_ids[i]];
                     e.fread();
@@ -635,6 +635,8 @@ namespace evo
 
     matrix<float> Solver::get_correlation(size_t which_trait, size_t which_row, size_t col_1, size_t col_2)
     {
+        matrix<float> cor_out;
+
         try
         {
             size_t irow[2] = {which_row, which_row};
@@ -666,6 +668,8 @@ namespace evo
             std::cerr << "Exception in Solver::get_correlation(size_t, size_t, size_t, size_t)." << '\n';
             throw;
         }
+
+        return cor_out;
     }
 
     void Solver::memload_var()
@@ -839,20 +843,20 @@ namespace evo
         {
             std::cout << "n_trait: " << n_trait << std::endl;
 
-            for (auto i = 0; i < n_obs.size(); i++)
+            for (size_t i = 0; i < n_obs.size(); i++)
                 std::cout << "n_obs: " << n_obs[i] << std::endl;
 
-            for (auto i = 0; i < n_lev.size(); i++)
-                for (auto j = 0; j < n_lev[i].size(); j++)
+            for (size_t i = 0; i < n_lev.size(); i++)
+                for (size_t j = 0; j < n_lev[i].size(); j++)
                     std::cout << "n_lev: " << n_lev[i][j] << std::endl;
 
-            for (auto i = 0; i < z_dat.size(); i++)
+            for (size_t i = 0; i < z_dat.size(); i++)
             {
                 z_dat[i].fread();
                 z_dat[i].print("z:");
             }
 
-            for (auto i = 0; i < y.size(); i++)
+            for (size_t i = 0; i < y.size(); i++)
             {
                 y[i].fread();
                 y[i].print("y:");
@@ -883,10 +887,10 @@ namespace evo
 
             matrix<float> v(levels, n_obs[which_trait]);
 
-            for (int j = 0; j < levels; j++)
+            for (size_t j = 0; j < levels; j++)
             {
                 matrix<float> v1 = get_vect_z_uni(which_trait, j);
-                for (size_t j2 = 0; j2 < n_obs[which_trait]; j2++)
+                for (size_t j2 = 0; j2 < (size_t)n_obs[which_trait]; j2++)
                     v(j, j2) = v1(0, j2);
             }
 

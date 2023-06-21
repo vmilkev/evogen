@@ -158,7 +158,7 @@ namespace evo
 
             float *ptr = static_cast<float *>(buf.ptr);
 
-            for (size_t i = 0; i < buf.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf.shape[0]; i++)
             {
                 ptr[i] = sol[i];
             }
@@ -291,7 +291,7 @@ namespace evo
                     if (vect(0, cmatr_row) == 0.0f)
                         throw std::string("Pcg::construct_dval(std::vector<std::vector<size_t>> &, size_t, std::vector<int> &) => Expected division by 0.0!");
 
-                    dval(cmatr_row, 0) = 1.0 / vect(0, cmatr_row);
+                    dval(cmatr_row, 0) = 1.0f / vect(0, cmatr_row);
 
                     cmatr_row = cmatr_row + 1;
                 }
@@ -800,7 +800,7 @@ namespace evo
 
             size_t last_random_level = 0;
 
-            for (int j_trate = 0; j_trate < n_trait; j_trate++)
+            for (size_t j_trate = 0; j_trate < n_trait; j_trate++)
             {
                 size_t tr_levels = get_levels(j_trate);
 
@@ -848,7 +848,7 @@ namespace evo
 
                             if (identity)
                             {
-                                vect_a(0, first_col + t_row) = vect_a(0, first_col + t_row) + 1.0 * var[0];
+                                vect_a(0, first_col + t_row) = vect_a(0, first_col + t_row) + 1.0f * var[0];
                             }
                             else
                             {
@@ -1051,7 +1051,7 @@ namespace evo
 
         try
         {
-            for (int i = 0; i < n_trait; i++)
+            for (size_t i = 0; i < n_trait; i++)
             {
                 for (auto const &e : n_lev[i])
                 {
@@ -1080,7 +1080,7 @@ namespace evo
 
         try
         {
-            for (int i = 0; i < before_trait; i++)
+            for (size_t i = 0; i < before_trait; i++)
             {
                 for (auto const &e : n_lev[i])
                 {
@@ -1109,7 +1109,7 @@ namespace evo
 
         try
         {
-            for (int i = 0; i < n_trait; i++)
+            for (size_t i = 0; i < n_trait; i++)
             {
                 levels = levels + n_lev[i].size();
             }
@@ -1137,7 +1137,7 @@ namespace evo
 
             size_t olevels = 0;
 
-            for (int i = 0; i < n_trait; i++)
+            for (size_t i = 0; i < n_trait; i++)
             {
                 for (auto const &e : n_lev[i])
                 {
@@ -1190,10 +1190,10 @@ namespace evo
             size_t cont_index = 0;
             size_t left_shift = 0;
 
-            for (int i = 0; i < n_eff_random; i++)
+            for (size_t i = 0; i < n_eff_random; i++)
             {
                 size_t right_shift = 0;
-                for (int j = 0; j < n_eff_random; j++)
+                for (size_t j = 0; j < n_eff_random; j++)
                 {
                     rcov_offsets[cont_index][0] = left_shift;
                     rcov_offsets[cont_index][1] = right_shift;

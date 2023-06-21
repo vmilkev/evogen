@@ -26,7 +26,7 @@ namespace evo
             residual.resize(lda, lda);
             // residual.rectosym();
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 residual[i] = ptr1[i];
 
             residual.fwrite();
@@ -63,7 +63,7 @@ namespace evo
 
             observation.resize(lda, 1);
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 observation[i] = ptr1[i];
 
             observation.fwrite();
@@ -108,7 +108,7 @@ namespace evo
 
             effect.resize(lda1, lda2);
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
             {
                 effect[i] = ptr1[i];
             }
@@ -168,13 +168,13 @@ namespace evo
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
-            for (size_t i = 0; i < buf3.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
                 effects[i] = ptr3[i];
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
 
-            for (size_t i = 0; i < buf2.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf2.shape[0]; i++)
                 correlation[i] = ptr2[i];
 
             effects.fwrite();
@@ -240,10 +240,10 @@ namespace evo
 
             correlation.resize(1, 1);
 
-            for (size_t i = 0; i < buf3.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
                 effects[i] = ptr3[i];
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
 
             correlation[0] = 1.0;
@@ -327,7 +327,7 @@ namespace evo
 
             correlation.resize(1, 1);
 
-            for (size_t i = 0; i < buf3.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
                 effects[i] = ptr3[i];
 
             for (size_t i = 0; i < lda1; i++)
@@ -417,10 +417,10 @@ namespace evo
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
-            for (size_t i = 0; i < buf3.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
                 effects[i] = ptr3[i];
 
-            for (size_t i = 0; i < buf1.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
 
             for (size_t i = 0; i < lda2; i++)
@@ -522,7 +522,7 @@ namespace evo
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
-            for (size_t i = 0; i < buf3.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
                 effects[i] = ptr3[i];
 
             for (size_t i = 0; i < lda1; i++)
@@ -592,7 +592,7 @@ namespace evo
 
             eff.resize(buf2.shape[0], 1);
 
-            for (size_t i = 0; i < buf2.shape[0]; i++)
+            for (pybind11::ssize_t i = 0; i < buf2.shape[0]; i++)
                 eff[i] = ptr2[i];
 
             observation_trait.push_back(obs_id);
@@ -1504,7 +1504,7 @@ namespace evo
         {
             matrix<size_t> shape(2, 1);
 
-            for (auto i2 = 0; i2 < residuals.size(); i2++)
+            for (size_t i2 = 0; i2 < residuals.size(); i2++)
             {
                 residuals[i2].fread();
                 residuals[i2].print("residual");
@@ -1514,7 +1514,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < observations.size(); i2++)
+            for (size_t i2 = 0; i2 < observations.size(); i2++)
             {
                 observations[i2].fread();
                 observations[i2].print("observations");
@@ -1524,7 +1524,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < effects.size(); i2++)
+            for (size_t i2 = 0; i2 < effects.size(); i2++)
             {
                 effects[i2].fread();
                 effects[i2].print("effects");
@@ -1534,7 +1534,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < correlated_effects.size(); i2++)
+            for (size_t i2 = 0; i2 < correlated_effects.size(); i2++)
             {
                 correlated_effects[i2].fread();
                 correlated_effects[i2].print("correlated_effects");
@@ -1544,7 +1544,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < variances.size(); i2++)
+            for (size_t i2 = 0; i2 < variances.size(); i2++)
             {
                 variances[i2].fread();
                 variances[i2].print("variances");
@@ -1554,7 +1554,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < correlations.size(); i2++)
+            for (size_t i2 = 0; i2 < correlations.size(); i2++)
             {
                 correlations[i2].fread();
                 correlations[i2].print("correlations");
@@ -1564,7 +1564,7 @@ namespace evo
                 shape.print("Shape:");
                 shape.clear();
             }
-            for (auto i2 = 0; i2 < effects_trait.size(); i2++)
+            for (size_t i2 = 0; i2 < effects_trait.size(); i2++)
             {
                 effects_trait[i2].print("effects_trait");
                 shape = effects_trait[i2].shape();
@@ -1597,7 +1597,7 @@ namespace evo
                 size_t sz = 0;
                 if (residuals.size() > 0)
                 {
-                    for (auto i = 0; i < residuals.size(); i++)
+                    for (size_t i = 0; i < residuals.size(); i++)
                         sz = sz + residuals[i].size();
                 }
                 return sz;
@@ -1608,7 +1608,7 @@ namespace evo
                 size_t sz = 0;
                 if (observations.size() > 0)
                 {
-                    for (auto i = 0; i < observations.size(); i++)
+                    for (size_t i = 0; i < observations.size(); i++)
                         sz = sz + observations[i].size();
                 }
                 return sz;
@@ -1619,7 +1619,7 @@ namespace evo
                 size_t sz = 0;
                 if (effects.size() > 0)
                 {
-                    for (auto i = 0; i < effects.size(); i++)
+                    for (size_t i = 0; i < effects.size(); i++)
                         sz = sz + effects[i].size();
                 }
                 return sz;
@@ -1630,7 +1630,7 @@ namespace evo
                 size_t sz = 0;
                 if (variances.size() > 0)
                 {
-                    for (auto i = 0; i < variances.size(); i++)
+                    for (size_t i = 0; i < variances.size(); i++)
                     {
                         sz = sz + variances[i].size();
                     }
@@ -1643,7 +1643,7 @@ namespace evo
                 size_t sz = 0;
                 if (correlations.size() > 0)
                 {
-                    for (auto i = 0; i < correlations.size(); i++)
+                    for (size_t i = 0; i < correlations.size(); i++)
                         sz = sz + correlations[i].size();
                 }
                 return sz;
@@ -1654,7 +1654,7 @@ namespace evo
                 size_t sz = 0;
                 if (correlated_effects.size() > 0)
                 {
-                    for (auto i = 0; i < correlated_effects.size(); i++)
+                    for (size_t i = 0; i < correlated_effects.size(); i++)
                         sz = sz + correlated_effects[i].size();
                 }
                 return sz;
@@ -1665,7 +1665,7 @@ namespace evo
                 size_t sz = 0;
                 if (observation_trait.size() > 0)
                 {
-                    for (auto i = 0; i < observation_trait.size(); i++)
+                    for (size_t i = 0; i < observation_trait.size(); i++)
                         sz = sz + 1;
                 }
                 return sz;
@@ -1676,11 +1676,13 @@ namespace evo
                 size_t sz = 0;
                 if (effects_trait.size() > 0)
                 {
-                    for (auto i = 0; i < effects_trait.size(); i++)
+                    for (size_t i = 0; i < effects_trait.size(); i++)
                         sz = sz + effects_trait[i].size();
                 }
                 return sz;
             }
+
+            return 0;
         }
         catch (const std::exception &e)
         {
@@ -1707,7 +1709,7 @@ namespace evo
             {
                 if (residuals.size() > 0)
                 {
-                    for (auto i = 0; i < residuals.size(); i++)
+                    for (size_t i = 0; i < residuals.size(); i++)
                     {
                         shape = residuals[i].shape();
                         sz[0] = shape[0];
@@ -1716,14 +1718,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("obs") == 0)
             {
                 if (observations.size() > 0)
                 {
-                    for (auto i = 0; i < observations.size(); i++)
+                    for (size_t i = 0; i < observations.size(); i++)
                     {
                         shape = observations[i].shape();
                         sz[0] = shape[0];
@@ -1732,14 +1734,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("eff") == 0)
             {
                 if (effects.size() > 0)
                 {
-                    for (auto i = 0; i < effects.size(); i++)
+                    for (size_t i = 0; i < effects.size(); i++)
                     {
                         shape = effects[i].shape();
                         // sz[0] = shape[0]; // on not transposed
@@ -1751,14 +1753,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("var") == 0)
             {
                 if (variances.size() > 0)
                 {
-                    for (auto i = 0; i < variances.size(); i++)
+                    for (size_t i = 0; i < variances.size(); i++)
                     {
                         shape = variances[i].shape();
                         sz[0] = shape[0];
@@ -1767,14 +1769,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("cor") == 0)
             {
                 if (correlations.size() > 0)
                 {
-                    for (auto i = 0; i < correlations.size(); i++)
+                    for (size_t i = 0; i < correlations.size(); i++)
                     {
                         shape = correlations[i].shape();
                         sz[0] = shape[0];
@@ -1783,14 +1785,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("cor_eff") == 0)
             {
                 if (correlated_effects.size() > 0)
                 {
-                    for (auto i = 0; i < correlated_effects.size(); i++)
+                    for (size_t i = 0; i < correlated_effects.size(); i++)
                     {
                         shape = correlated_effects[i].shape();
                         sz[0] = shape[0];
@@ -1799,14 +1801,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("obs_trt") == 0)
             {
                 if (observation_trait.size() > 0)
                 {
-                    for (auto i = 0; i < observation_trait.size(); i++)
+                    for (size_t i = 0; i < observation_trait.size(); i++)
                     {
                         // shape = observation_trait[i].shape();
                         sz[0] = 1;
@@ -1815,14 +1817,14 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
 
             if (type.compare("eff_trt") == 0)
             {
                 if (effects_trait.size() > 0)
                 {
-                    for (auto i = 0; i < effects_trait.size(); i++)
+                    for (size_t i = 0; i < effects_trait.size(); i++)
                     {
                         shape = effects_trait[i].shape();
                         sz[0] = shape[0];
@@ -1831,8 +1833,10 @@ namespace evo
                     }
                     shape.clear();
                 }
-                return shapes;
+                //return shapes;
             }
+
+            return shapes;
         }
         catch (const std::exception &e)
         {
@@ -1846,6 +1850,7 @@ namespace evo
             throw;
         }
     }
+
     template <typename T>
     std::vector<T> Model::test_effects(size_t which_effect, T dummy_type)
     {

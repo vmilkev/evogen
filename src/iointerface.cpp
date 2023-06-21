@@ -102,7 +102,7 @@ namespace evo
                                 long int offset = (i)*nbytes + 3;
                                 fseek(in_stream, offset, SEEK_SET);
                                 fread(buffer, sizeof(unsigned char), nbytes, in_stream);
-                                int j = 0;
+                                size_t j = 0;
                                 for (size_t k = 0; k < nbytes; k++)
                                 {
                                         buf_k = buffer[k];
@@ -111,7 +111,7 @@ namespace evo
                                                 if (j < samples)
                                                 {
                                                         out[i][j] = map[buf_k & 3];
-                                                        buf_k = buf_k >> 2;
+                                                        buf_k = (unsigned char)(buf_k >> 2);
                                                 }
                                         }
                                 }

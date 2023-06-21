@@ -87,9 +87,9 @@ void proces_array(float **arr, size_t lda, size_t ldb)
 {
     float counter = 1.0;
 
-    for (auto i = 0; i < lda; i++)
+    for (size_t i = 0; i < lda; i++)
     {
-        for (auto j = 0; j < ldb; j++)
+        for (size_t j = 0; j < ldb; j++)
         {
             arr[i][j] = counter;
             counter++;

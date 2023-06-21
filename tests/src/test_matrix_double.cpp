@@ -177,10 +177,10 @@ TEST_CASE("Checking class constructors, type = double"){
             REQUIRE_FALSE(M1.failbit);
             REQUIRE_FALSE(M2.failbit);
 
-            for (auto i = 0; i < M1.size(); i++)
+            for (size_t i = 0; i < M1.size(); i++)
                 M1[i] = 5.0;
 
-            for (auto i = 0; i < M1.size(); i++)
+            for (size_t i = 0; i < M1.size(); i++)
                 CHECK(M1[i] != M2[i]);
 
             M2 = M1;
@@ -188,13 +188,13 @@ TEST_CASE("Checking class constructors, type = double"){
             REQUIRE_FALSE(M1.failbit);
             REQUIRE_FALSE(M2.failbit);
 
-            for (auto i = 0; i < M1.size(); i++)
+            for (size_t i = 0; i < M1.size(); i++)
                 CHECK(M1[i] == M2[i]);
         }
 
         SECTION("Assignment to initialised matrix"){
             
-            for (auto i = 0; i < M2.size(); i++)
+            for (size_t i = 0; i < M2.size(); i++)
                 M2[i] = 5.0;
 
             M3 = M2;
@@ -204,16 +204,16 @@ TEST_CASE("Checking class constructors, type = double"){
             REQUIRE_FALSE(M3.failbit);
             REQUIRE_FALSE(M2.failbit);
 
-            for (auto i = 0; i < M2.size(); i++)
+            for (size_t i = 0; i < M2.size(); i++)
                 CHECK(M2[i] == 5.0);
             
-            for (auto i = 0; i < M3.size(); i++)
+            for (size_t i = 0; i < M3.size(); i++)
                 CHECK(M3[i] == 5.0);
 
-            for (auto i = 0; i < M3.size(); i++)
+            for (size_t i = 0; i < M3.size(); i++)
                 M3[i] = 15.0;
             
-            for (auto i = 0; i < M3.size(); i++)
+            for (size_t i = 0; i < M3.size(); i++)
                 CHECK(M3[i] == 15.0);
 
             M2 = M3;
@@ -221,13 +221,13 @@ TEST_CASE("Checking class constructors, type = double"){
             REQUIRE_FALSE(M3.failbit);
             REQUIRE_FALSE(M2.failbit);
 
-            for (auto i = 0; i < M1.size(); i++)
+            for (size_t i = 0; i < M1.size(); i++)
                 CHECK(M3[i] == M2[i]);
             
-            for (auto i = 0; i < M3.size(); i++)
+            for (size_t i = 0; i < M3.size(); i++)
                 CHECK(M3[i] == 15.0);
             
-            for (auto i = 0; i < M2.size(); i++)
+            for (size_t i = 0; i < M2.size(); i++)
                 CHECK(M2[i] == 15.0);
 
         }
@@ -378,15 +378,15 @@ TEST_CASE("Testing scale() method, type = double"){
     SECTION("Scaling to 0.5 a square matrix"){
 
         evo::matrix <mytype> M(3,3);
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.scale(0.5);
         
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             mytype j = i*0.5;
             CHECK(M[i] == Approx(j));
         }
@@ -396,15 +396,15 @@ TEST_CASE("Testing scale() method, type = double"){
     SECTION("Scaling to -2.5 a square matrix"){
 
         evo::matrix <mytype> M(3,3);
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.scale(-2.5);
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             mytype j = i*(-2.5);
             CHECK(M[i] == Approx(j));
         }
@@ -414,15 +414,15 @@ TEST_CASE("Testing scale() method, type = double"){
     SECTION("Scaling to 0.5 a rectangular matrix"){
 
         evo::matrix <mytype> M(3,5);
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.scale(0.5);
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             mytype j = i*0.5;
             CHECK(M[i] == Approx(j));
         }
@@ -432,15 +432,15 @@ TEST_CASE("Testing scale() method, type = double"){
     SECTION("Scaling to 1.5 a rectangular matrix"){
 
         evo::matrix <mytype> M(5,3);
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.scale(1.5);
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             mytype j = i*1.5;
             CHECK(M[i] == Approx(j));
         }
@@ -450,15 +450,15 @@ TEST_CASE("Testing scale() method, type = double"){
     SECTION("Scaling to -2.5 a rectangular matrix"){
 
         evo::matrix <mytype> M(13,5);
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.scale(-2.5);
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             mytype j = i*(-2.5);
             CHECK(M[i] == Approx(j));
         }
@@ -477,16 +477,16 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(5.0);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] > M2[i]);
         }
 
@@ -495,7 +495,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -508,7 +508,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(5.0);
@@ -518,7 +518,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -531,16 +531,16 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(5.0);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] > M2[i]);
         }
 
@@ -549,7 +549,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -562,7 +562,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
 
@@ -573,7 +573,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -586,16 +586,16 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(5.0);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] > M2[i]);
         }
 
@@ -604,7 +604,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -617,16 +617,16 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(-5.0);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] < M2[i]);
         }
 
@@ -635,7 +635,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -648,7 +648,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(-5.0);
@@ -658,7 +658,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for (auto i = 0; i < M1.size(); i++){
+        for (size_t i = 0; i < M1.size(); i++){
             CHECK(M1[i] == M2[i]);
         }
     }
@@ -673,14 +673,14 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
         CHECK(M1.size() > M2.size());
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 1;
         }
         M1.scale(-5.0);
 
         M2[0] = 1.0;
 
-        for (auto i = 0; i < M2.size(); i++){
+        for (size_t i = 0; i < M2.size(); i++){
             CHECK(M1[i] != M2[i]);
         }
 
@@ -703,8 +703,8 @@ TEST_CASE("Testing symtorec() method, type = double"){
 
     SECTION("Positive matrix"){
 
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M.symtorec();
         
@@ -712,14 +712,14 @@ TEST_CASE("Testing symtorec() method, type = double"){
 
         CHECK(M.size() == 9);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
 
     SECTION("Negative matrix"){       
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = -1*static_cast<mytype> (i);
         }
         M.symtorec();
@@ -728,7 +728,7 @@ TEST_CASE("Testing symtorec() method, type = double"){
 
         CHECK(M.size() == 9);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m2[i]));
         }
     }
@@ -745,8 +745,8 @@ TEST_CASE("Check rectosym() method, type = double"){
         
         mytype m[] = {0, 3, 4, 6, 7, 8};
 
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
 
         M.rectosym();
@@ -755,7 +755,7 @@ TEST_CASE("Check rectosym() method, type = double"){
 
         CHECK(M.size() == 6);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
@@ -764,7 +764,7 @@ TEST_CASE("Check rectosym() method, type = double"){
         
         mytype m[] = {-0.0, -0.3, -0.4, -0.6, -0.7, -0.8};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -774,21 +774,21 @@ TEST_CASE("Check rectosym() method, type = double"){
 
         CHECK(M.size() == 6);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
 
     SECTION("rectosym() & symtorec(), big"){
 
-        int dim = 500;
+        size_t dim = 500;
 
         evo::matrix <mytype> M(dim,dim);
         evo::matrix <mytype> m(dim,dim);
         
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
-            m[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
+            m[i] = (mytype)i;
         }
         //M.print("rectangular");
         
@@ -805,8 +805,8 @@ TEST_CASE("Check rectosym() method, type = double"){
 
         CHECK( M.size() == dim*(dim+1)/2 );
 
-        for(auto i = 0; i < dim; i++){
-            for(auto j = 0; j <= i; j++)
+        for(size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j <= i; j++)
                 CHECK( M(i,j) == m(i,j));
         }
 
@@ -822,8 +822,8 @@ TEST_CASE("Check rectosym() method, type = double"){
 
         CHECK( M.size() == dim*dim );
 
-        for(auto i = 0; i < dim; i++){
-            for(auto j = 0; j <= i; j++)
+        for(size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j <= i; j++)
                 CHECK( M(i,j) == m(i,j));
         }
     }
@@ -840,7 +840,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M1.failbit);
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -849,8 +849,8 @@ TEST_CASE("Check transpose() method, type = double"){
         //M1.print("M1");
         //M2.print("M2");
 
-        for(auto i = 0; i < dim; i++){
-            for(auto j = 0; j < dim; j++){
+        for(size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j < dim; j++){
                 CHECK( M2(i,j) == M1(i,j) );
             }
         }
@@ -867,8 +867,8 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M1.failbit);
 
-        for(auto i = 0; i < dim; i++){
-            for(auto j = 0; j < dim; j++){
+        for(size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j < dim; j++){
                 CHECK( M2(j,i) == M1(i,j) );
             }
         }
@@ -883,11 +883,11 @@ TEST_CASE("Check transpose() method, type = double"){
 
         mytype m[] = {-0.0, -0.3, -0.6, -0.1, -0.4, -0.7, -0.2, -0.5, -0.8};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             if( i%(dim-1) )
                 CHECK(M[i] != Approx(m[i]));
         }
@@ -896,7 +896,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
@@ -911,7 +911,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         mytype m[] = {-0.0, -0.5, -1.0, -0.1, -0.6, -1.1, -0.2, -0.7, -1.2, -0.3, -0.8, -1.3, -0.4, -0.9, -1.4};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -919,7 +919,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
@@ -934,7 +934,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         mytype m[] = {-0.0, -0.3, -0.6, -0.9, -1.2, -0.1, -0.4, -0.7, -1.0, -1.3, -0.2, -0.5, -0.8, -1.1, -1.4};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -942,7 +942,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
@@ -956,7 +956,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         mytype m[] = {-0.0, -0.1, -0.3, -0.1, -0.2, -0.4, -0.3, -0.4, -0.5};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -964,7 +964,7 @@ TEST_CASE("Check transpose() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
     }
@@ -983,7 +983,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         mytype m[] = {-0.0, -0.3, -0.6, -0.9, -1.2, -0.1, -0.4, -0.7, -1.0, -1.3, -0.2, -0.5, -0.8, -1.1, -1.4};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -991,7 +991,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1009,7 +1009,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
         CHECK(M.size() == 15);
         CHECK(M.capacity() == 15);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1025,7 +1025,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         mytype m[] = {-0.0, -0.5, -1.0, -0.1, -0.6, -1.1, -0.2, -0.7, -1.2, -0.3, -0.8, -1.3, -0.4, -0.9, -1.4};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -1033,7 +1033,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1049,7 +1049,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
         CHECK(M.size() == 15);
         CHECK(M.capacity() == 15);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1064,7 +1064,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         mytype m[] = {-0.0, -0.1, -0.3, -0.1, -0.2, -0.4, -0.3, -0.4, -0.5};
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i * static_cast <mytype> (-0.1);
         }
 
@@ -1072,7 +1072,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1088,7 +1088,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
         CHECK(M.size() == 9);
         CHECK(M.capacity() == 9);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1105,8 +1105,8 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3;
 
@@ -1116,7 +1116,7 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1131,7 +1131,7 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i= 1; i < M.size(); i++){
             M[i] = -1.0*i;
         }
         M[0] = -3;
@@ -1142,7 +1142,7 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1156,8 +1156,8 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3.0; M[2] = 6.0;
 
@@ -1169,7 +1169,7 @@ TEST_CASE("Checking the invert() method, type = double"){
 
         CHECK(M.size() == 6);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1189,8 +1189,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3;
 
@@ -1200,7 +1200,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1217,8 +1217,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3.0;
 
@@ -1229,12 +1229,12 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == Approx( m[i]) );
         }
 
         CHECK( M[0] == 3.0 );
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i = 1; i < M.size(); i++){
             CHECK( M[i] == i );
         }
 
@@ -1249,7 +1249,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i = 1; i < M.size(); i++){
             M[i] = -1.0*i;
         }
         M[0] = -3;
@@ -1260,7 +1260,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1274,8 +1274,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3.0; M[2] = 6.0;
 
@@ -1287,7 +1287,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         CHECK(M.size() == 6);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == Approx(m[i]));
         }
 
@@ -1303,8 +1303,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 1; i < M.size(); i++){
+            M[i] = (mytype)i;
         }
         M[0] = 3.0; M[2] = 6.0;
 
@@ -1318,11 +1318,11 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         CHECK(res.size() == 9);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK(res[i] == Approx(m[i]));
         }
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK(M[i] == m0[i]);
         }
 
@@ -1336,7 +1336,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i = 1; i < M.size(); i++){
             M[i] = -1.0*i;
         }
         M[0] = -3;
@@ -1347,7 +1347,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1362,7 +1362,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i = 1; i < M.size(); i++){
             M[i] = 1.0*i;
         }
         M[0] = -3;
@@ -1373,7 +1373,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == Approx( m[i]) );
         }
 
@@ -1390,7 +1390,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 1; i < M.size(); i++){
+        for(size_t i = 1; i < M.size(); i++){
             M[i] = 1.0*i;
         }
         M[0] = -3;
@@ -1402,7 +1402,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M2[i] == Approx( m[i]) );
         }
 
@@ -1428,12 +1428,12 @@ TEST_CASE("Checking overloaded operator *, type = double"){
 
     SECTION("Positive square matrices: (3,3)*(3,3): result is in uninitialised matrix"){
 
-        for(auto i = 0; i < M1.size(); i++){
-            M1[i] = i;
+        for(size_t i = 0; i < M1.size(); i++){
+            M1[i] = (mytype)i;
         }
 
-        for(auto i = 0; i < M2.size(); i++){
-            M2[i] = i+9;
+        for(size_t i = 0; i < M2.size(); i++){
+            M2[i] = (mytype)(i+9);
         }
 
         res = M1*M2;
@@ -1444,16 +1444,16 @@ TEST_CASE("Checking overloaded operator *, type = double"){
 
         if( !res.failbit ){
             CHECK(res.size() == 9);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m1[i]) );
             }
         }
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             CHECK( M1[i] == i );
         }
 
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == i+9 );
         }
 
@@ -1461,12 +1461,12 @@ TEST_CASE("Checking overloaded operator *, type = double"){
 
     SECTION("Positive square matrices: (3,3)*(3,3): result as self-assignment"){
 
-        for(auto i = 0; i < M1.size(); i++){
-            M1[i] = i;
+        for(size_t i = 0; i < M1.size(); i++){
+            M1[i] = (mytype)i;
         }
 
-        for(auto i = 0; i < M2.size(); i++){
-            M2[i] = i+9;
+        for(size_t i = 0; i < M2.size(); i++){
+            M2[i] = (mytype)(i+9);
         }
 
         M1 = M1*M2;
@@ -1476,7 +1476,7 @@ TEST_CASE("Checking overloaded operator *, type = double"){
 
         if( !M1.failbit ){
             CHECK(M1.size() == 9);
-            for(auto i = 0; i < M1.size(); i++){
+            for(size_t i = 0; i < M1.size(); i++){
                 CHECK( M1[i] == Approx( m1[i]) );
             }
         }
@@ -1499,12 +1499,12 @@ TEST_CASE("(2) Checking overloaded operator *, type = double"){
 
     SECTION("Square matrices: -(3,3)*(3,3): result is in uninitialised matrix"){
         
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = -1.0*i;
         }
 
-        for(auto i = 0; i < M2.size(); i++){
-            M2[i] = i+9;
+        for(size_t i = 0; i < M2.size(); i++){
+            M2[i] = (mytype)(i+9);
         }
 
         res = M1*M2;
@@ -1513,19 +1513,19 @@ TEST_CASE("(2) Checking overloaded operator *, type = double"){
         REQUIRE_FALSE(M2.failbit);
         REQUIRE_FALSE(res.failbit);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m2[i]) );
         }
     }
 
     SECTION("Square matrices: -(3,3)*(3,3): result as self-assignment"){
         
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = -1.0*i;
         }
 
-        for(auto i = 0; i < M2.size(); i++){
-            M2[i] = i+9;
+        for(size_t i = 0; i < M2.size(); i++){
+            M2[i] = (mytype)(i+9);
         }
 
         M2 = M1*M2;
@@ -1533,7 +1533,7 @@ TEST_CASE("(2) Checking overloaded operator *, type = double"){
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == Approx( m2[i]) );
         }
     }
@@ -1558,8 +1558,8 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
     SECTION("Rectangular square matrices: A*A'"){
 
-        for(auto i = 0; i < M1.size(); i++){
-            M1[i] = i;
+        for(size_t i = 0; i < M1.size(); i++){
+            M1[i] = (mytype)i;
         }
 
         M2 = M1;
@@ -1575,11 +1575,11 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
         CHECK(res.size() == 9);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m[i]) );
         }
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == res2[i] );
         }
 
@@ -1589,7 +1589,7 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         M2.clear();
         M2 = M1^"T";
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             CHECK( M1[i] == i );
         }
 
@@ -1601,7 +1601,7 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
         CHECK(res.size() == 9);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m[i]) );
         }
 
@@ -1616,7 +1616,7 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
         CHECK(res.size() == 9);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m[i]) );
         }
 
@@ -1629,14 +1629,14 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         mytype val = 1.5;
         mytype m2[15];
 
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
             m2[i] = i*val;
         }
 
         res = M * val;
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == i );
         }
 
@@ -1648,11 +1648,11 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(res.failbit);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m2[i]) );
         }
        
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( M[i] == Approx( m2[i]) );
         }
 
@@ -1667,9 +1667,9 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         evo::matrix<float> v2(1,5);
         evo::matrix<float> res;
 
-        for(auto i = 0; i < v1.size(); i++){
-            v1[i] = i+1;
-            v2[i] = i+2;
+        for(size_t i = 0; i < v1.size(); i++){
+            v1[i] = (float)(i+1);
+            v2[i] = (float)(i+2);
         }
 
         res = v2 * v1 * val;
@@ -1685,14 +1685,14 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         mytype val = -1.5;
         mytype m3[15];
 
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
             m3[i] = i*val;
         }
 
         res = M * val;
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == i );
         }
 
@@ -1704,11 +1704,11 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(res.failbit);
 
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( res[i] == Approx( m3[i]) );
         }
        
-        for(auto i = 0; i < res.size(); i++){
+        for(size_t i = 0; i < res.size(); i++){
             CHECK( M[i] == Approx( m3[i]) );
         }
 
@@ -1730,8 +1730,8 @@ TEST_CASE("Checking overloaded +/- operators, type = double"){
 
     SECTION("Adding two positive matrices"){
 
-        for(auto i = 0; i < M.size(); i++){
-            M[i] = i;
+        for(size_t i = 0; i < M.size(); i++){
+            M[i] = (mytype)i;
             m[i] = i*2.0;
         }
         
@@ -1747,11 +1747,11 @@ TEST_CASE("Checking overloaded +/- operators, type = double"){
 
         res = M + M2;
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == i );
         }
 
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == i );
         }
 
@@ -1761,7 +1761,7 @@ TEST_CASE("Checking overloaded +/- operators, type = double"){
 
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1789,7 +1789,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = -1.0*i;
             m[i] = -1.0*i*2.0;
         }
@@ -1803,7 +1803,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1820,7 +1820,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = 1.0*i;
             m[i] = -1.0*i;
         }
@@ -1838,7 +1838,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1850,9 +1850,9 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
     SECTION("Substitution two positive matrices"){
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = i*2.0;
-            m[i] = i;
+            m[i] = (mytype)i;
         }
 
         M2 = M*0.5;
@@ -1869,7 +1869,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1884,9 +1884,9 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = -1.0*i;
-            m[i] = i;
+            m[i] = (mytype)i;
         }
 
         M2 = M*2.0;
@@ -1901,7 +1901,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1916,7 +1916,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
         REQUIRE_FALSE(M.failbit);
 
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             M[i] = -1.0*i;
             m[i] = -1.0*i*3.0;
         }
@@ -1934,7 +1934,7 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
         
         if ( !res.failbit ) {
             CHECK(res.size() == 15);
-            for(auto i = 0; i < res.size(); i++){
+            for(size_t i = 0; i < res.size(); i++){
                 CHECK( res[i] == Approx( m[i]) );
             }
         }
@@ -1953,18 +1953,18 @@ TEST_CASE ("Checking dual direction overloaded operator +, type = double"){
 
     SECTION("Left/right addition"){
 
-        for(auto i = 0; i < M1.size(); i++)
+        for(size_t i = 0; i < M1.size(); i++)
             M1[i] = 2.0;
         
         res = 2.0+M2;
         
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == 0.0 );
         }
 
         REQUIRE_FALSE(res.failbit);
         
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
         res.clear();
@@ -1973,13 +1973,13 @@ TEST_CASE ("Checking dual direction overloaded operator +, type = double"){
 
         res = M2 + 2.0;
         
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == 0.0 );
         }
 
         REQUIRE_FALSE(res.failbit);
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
     }
@@ -1993,20 +1993,20 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
     SECTION("Positive left/right multiplication"){
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 2.0;
             M2[i] = 1.0;
         }
         
         res = 2.0 * M2;
         
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == 1.0 );
         }
 
         REQUIRE_FALSE(res.failbit);
         
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
         res.clear();
@@ -2015,20 +2015,20 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
         res = M2 * 2.0;
         
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             CHECK( M2[i] == 1.0 );
         }
 
         REQUIRE_FALSE(res.failbit);
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
     }
 
     SECTION("Negative left/right multiplication"){
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = 2.0;
             M2[i] = -1.0;
         }
@@ -2037,7 +2037,7 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
         REQUIRE_FALSE(res.failbit);
         
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
         res.clear();
@@ -2052,7 +2052,7 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
         REQUIRE_FALSE(res.failbit);
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK(res[i] == M1[i]);
 
     }
@@ -2065,14 +2065,14 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         evo::matrix <mytype> res2;
         
 
-        for(auto i = 0; i < M1.size(); i++){
-            M1[i] = i;
+        for(size_t i = 0; i < M1.size(); i++){
+            M1[i] = (mytype)i;
         }
 
         //M1.print("M1, symmetric");
         int count = 0;
-        for(auto i = 0; i < 5; i++){
-            for(auto j = 0; j <= i; j++){
+        for(size_t i = 0; i < 5; i++){
+            for(size_t j= 0; j <= i; j++){
                 M2(i,j) = M2(j,i) = count;
                 count++;
             }
@@ -2097,10 +2097,10 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         CHECK( res2.size() == M1.size() );
         CHECK( res1.size() != res2.size() );
 
-        for (auto i = 0; i < res1.size(); i++)
+        for (size_t i = 0; i < res1.size(); i++)
             CHECK( res1[i] == M2[i] );
 
-        for (auto i = 0; i < res2.size(); i++)
+        for (size_t i = 0; i < res2.size(); i++)
             CHECK( res2[i] == M1[i] );
 
         CHECK(a == true);
@@ -2118,14 +2118,14 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
     SECTION("Overloaded operator <<: symmetric"){
 
-        int dim = 700;
+        size_t dim = 700;
         evo::matrix <mytype> M1( dim );
         evo::matrix <mytype> M2( dim );
         evo::matrix <mytype> res1;
         evo::matrix <mytype> res2;
 
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = i+0.0;
             M2[i] = i+1.0;
         }
@@ -2143,8 +2143,8 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         
         //res1.print("res1, concatenation without transpose");
         
-        for (auto i = 0; i < dim; i++){
-            for(auto j = 0; j <= i; j++){
+        for (size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j <= i; j++){
                 CHECK(res1(i,j) == M1(i,j));
             }
             for(auto j = dim; j <= i+dim; j++){
@@ -2171,7 +2171,7 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         //std::cout<<"elements "<<elements<<std::endl;
         //std::cout<<"Mi.size() "<<Mi.size()<<std::endl;
 
-        for(auto i = 0; i < elements; i++){
+        for(size_t i = 0; i < elements; i++){
             Mi[i] = static_cast<int>(i);
             Ml[i] = static_cast<size_t>(i);
             Mf[i] = static_cast<float>(i);
@@ -2210,7 +2210,7 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
         CHECK( res.size() == Mi.size() );
 
-        for (auto i = 0; i < elements; i++){
+        for (size_t i = 0; i < elements; i++){
             float num = static_cast<float>(i);
             float num2 = static_cast<float>(0);     
             if(i%2)
@@ -2227,14 +2227,14 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
     SECTION("Overloaded operator >>: symmetric"){
 
-        int dim = 500;
+        size_t dim = 500;
         evo::matrix <mytype> M1( dim );
         evo::matrix <mytype> M2( dim );
         evo::matrix <mytype> res1;
         evo::matrix <mytype> res2;
 
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = i+0.0;
             M2[i] = i+1.0;
         }
@@ -2252,13 +2252,13 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         
         //res1.print("res1, concatenation M1 >> M2");
         
-        for (auto i = 0; i < dim; i++){
-            for(auto j = 0; j <= i; j++)
+        for (size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j <= i; j++)
                 CHECK(res1(i,j) == M1(i,j));
         }
 
         for (auto i = dim; i < dim+dim; i++){
-            for(auto j = 0; j <= i-dim; j++)
+            for(size_t j= 0; j <= i-dim; j++)
                 CHECK(res1(i,j) == M2(i-dim,j));
         }
 
@@ -2266,19 +2266,19 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
     SECTION("Overloaded operator >>: rectangular"){
 
-        int dim1 = 500;
-        int dim2 = 600;
-        int dim3 = 700;
+        size_t dim1 = 500;
+        size_t dim2 = 600;
+        size_t dim3 = 700;
         evo::matrix <mytype> M1( dim1, dim3 );
         evo::matrix <mytype> M2( dim2, dim3 );
         evo::matrix <mytype> res1;
         evo::matrix <mytype> res2;
 
 
-        for(auto i = 0; i < M1.size(); i++)
+        for(size_t i = 0; i < M1.size(); i++)
             M1[i] = i+0.0;
 
-        for(auto i = 0; i < M2.size(); i++)
+        for(size_t i = 0; i < M2.size(); i++)
             M2[i] = i+1.0;
         
         //M1.print("M1, symmetric");
@@ -2294,13 +2294,13 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         
         //res1.print("res1, concatenation M1 >> M2");
         
-        for (auto i = 0; i < dim1; i++){
-            for(auto j = 0; j < dim3; j++)
+        for (size_t i = 0; i < dim1; i++){
+            for(size_t j= 0; j < dim3; j++)
                 CHECK(res1(i,j) == M1(i,j));
         }
 
         for (auto i = dim1; i < dim1+dim2; i++){
-            for(auto j = 0; j < dim3; j++)
+            for(size_t j= 0; j < dim3; j++)
                 CHECK(res1(i,j) == M2(i-dim1,j));
         }
 
@@ -2308,19 +2308,19 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 
     SECTION("Overloaded operator <<: rectangular, no transpose"){
 
-        int dim = 300;
-        int dim2 = 500;
-        int dim3 = 600;
+        size_t dim = 300;
+        size_t dim2 = 500;
+        size_t dim3 = 600;
         evo::matrix <mytype> M1( dim, dim2 );
         evo::matrix <mytype> M2( dim, dim3 );
         evo::matrix <mytype> res1;
         evo::matrix <mytype> res2;
 
-        for(auto i = 0; i < M1.size(); i++){
+        for(size_t i = 0; i < M1.size(); i++){
             M1[i] = i+0.0;
         }
 
-        for(auto i = 0; i < M2.size(); i++){
+        for(size_t i = 0; i < M2.size(); i++){
             M2[i] = i+1.0;
         }
         
@@ -2337,8 +2337,8 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
         
         //res1.print("res1, concatenation without transpose");
         
-        for (auto i = 0; i < dim; i++){
-            for(auto j = 0; j < dim2; j++){
+        for (size_t i = 0; i < dim; i++){
+            for(size_t j= 0; j < dim2; j++){
                 CHECK(res1(i,j) == M1(i,j));
             }
             for(auto j = dim2; j < dim2+dim3; j++){
@@ -2562,7 +2562,7 @@ TEST_CASE("Final integration test, type = double"){
 
         M.resize(2,6);
 
-        for (auto i = 0; i < M.size(); i++){
+        for (size_t i = 0; i < M.size(); i++){
             M[i] = static_cast <mytype> (i+1);
             CHECK (M[i] == m0[i]);
         }
@@ -2571,7 +2571,7 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE_FALSE(tmp_res.failbit);
 
-        for (auto i = 0; i < tmp_res.size(); i++)
+        for (size_t i = 0; i < tmp_res.size(); i++)
             CHECK (tmp_res[i] == m_sqv[i]);
 
         tmp_res.transpose();
@@ -2583,19 +2583,19 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE_FALSE(tmp_res2.failbit);
 
-        for (auto i = 0; i < tmp_res2.size(); i++)
+        for (size_t i = 0; i < tmp_res2.size(); i++)
             CHECK (tmp_res2[i] == m_sqv[i]);
 
         tmp_res2.invert();
 
         REQUIRE_FALSE(tmp_res2.failbit);
 
-        for (auto i = 0; i < tmp_res2.size(); i++)
+        for (size_t i = 0; i < tmp_res2.size(); i++)
             CHECK( Approx(tmp_res2[i]) == (m_inv[i]) );    
 
         res = ( ( (M^2)^(-1) ) - 0.01 )*tmp_res;
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == m0[i] );
         }
 
@@ -2605,21 +2605,21 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE_FALSE(res_tr.failbit);
 
-        for (auto i = 0; i < res_tr.size(); i++)
+        for (size_t i = 0; i < res_tr.size(); i++)
             CHECK (res_tr[i] == m_sqv[i]);
 
         res2 = ( (M^-2) - 0.01 )*( (M^2)^"T" );
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == m0[i] );
         }
 
         REQUIRE_FALSE(res2.failbit);
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK( res[i] == Approx(m_res[i]) );
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK( res[i] == res2[i] );
     }
 
@@ -2639,12 +2639,12 @@ TEST_CASE("Final integration test, type = double"){
         mytype m_inv[] = {290.9999,-327.9999,24.4999,36.4999,-327.9999,370.9999,-29.4999,
                           -40.4999,24.4999,-29.4999,4.99999,1.99999,36.4999,-40.4999,1.99999,4.99999};
         
-        for (auto i = 0; i < M.size(); i++){
+        for (size_t i = 0; i < M.size(); i++){
             M[i] = static_cast <mytype> (i+1);
             CHECK (M[i] == m0[i]);
         }
 
-        for (auto i = 0; i < b.size(); i++){
+        for (size_t i = 0; i < b.size(); i++){
             b[i] = static_cast <mytype> (i+1);
             CHECK (b[i] == b0[i]);
         }
@@ -2653,7 +2653,7 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE_FALSE(tmp_res.failbit);
 
-        for (auto i = 0; i < tmp_res.size(); i++)
+        for (size_t i = 0; i < tmp_res.size(); i++)
             CHECK (tmp_res[i] == m_sqv[i]);
 
         tmp_res.invert();
@@ -2661,21 +2661,21 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE_FALSE(tmp_res.failbit);
 
-        for (auto i = 0; i < tmp_res.size(); i++)
+        for (size_t i = 0; i < tmp_res.size(); i++)
             CHECK ( (tmp_res[i]) == Approx(m_inv[i]) );
 
         res = (M^-2)*b*0.01;
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == m0[i] );
         }
 
         REQUIRE_FALSE(res.failbit);
 
-        for (auto i = 0; i < res.size(); i++)
+        for (size_t i = 0; i < res.size(); i++)
             CHECK( res[i] == Approx(m_res[i]) );
 
-        for (auto i = 0; i < M.size(); i++){
+        for (size_t i = 0; i < M.size(); i++){
             CHECK (M[i] == m0[i]);
         }
 
@@ -2691,7 +2691,7 @@ TEST_CASE("Final integration test, type = double"){
 
         CHECK(res2.size() == 16);
 
-        for (auto i = 0; i < res2.size(); i++)
+        for (size_t i = 0; i < res2.size(); i++)
             CHECK( res2[i] == Approx(m0_tr[i]) );
 
         evo::matrix <mytype> m02 = M;
@@ -2713,24 +2713,24 @@ TEST_CASE("Final integration test, type = double"){
 
         //res2.print("res2 = M*(M^T)");
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == m02[i] );
         }
 
         REQUIRE_FALSE(res2.failbit);
 
-        for (auto i = 0; i < res2.size(); i++)
+        for (size_t i = 0; i < res2.size(); i++)
             CHECK( res2[i] == Approx(m_sqv[i]) );
 
         res2 = ( ( M*(M^"T") )^-1 )*b*0.01;
         
-        for(auto i = 0; i < M.size(); i++){
+        for(size_t i = 0; i < M.size(); i++){
             CHECK( M[i] == m02[i] );
         }
 
         REQUIRE_FALSE(res2.failbit);
 
-        for (auto i = 0; i < res2.size(); i++)
+        for (size_t i = 0; i < res2.size(); i++)
             CHECK( res2[i] == Approx(m_res[i]) );
 
         //res2.print("res2 = ( ( M*(M^T) )^-1 )*b*0,01");

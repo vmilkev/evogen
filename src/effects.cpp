@@ -553,6 +553,8 @@ namespace evo
             f_effect.clear();
             d_effect.fclear();
             d_effect.clear();
+
+            return 0;
         }
         catch (const std::exception &e)
         {

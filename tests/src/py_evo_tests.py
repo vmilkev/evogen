@@ -210,6 +210,8 @@ class TestEVO( unittest.TestCase ):
 
     def testSolver_with_IO( self ):
 
+        # pp. 72, Example 5.1
+
         sol_true = [ 4.3608, 3.3972, 0.1510, -0.0154, -0.0784, -0.0102, -0.2703, 0.2758, -0.3161, 0.2438, 6.7998, 5.8803, 0.2797, -0.0076, -0.1703, -0.0126, -0.4778, 0.5173, -0.4789, 0.3920 ]
 
         model = evogen.Model()

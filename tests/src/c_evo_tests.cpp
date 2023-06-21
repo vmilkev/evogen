@@ -484,9 +484,9 @@ TEST_CASE("Small data test: model 1")
 
             solver.test_vect_z_uni(0, z);
 
-            for (auto i = 0; i < true_z.size(); i++)
+            for (size_t i = 0; i < true_z.size(); i++)
             {
-                for (auto j = 0; j < true_z[i].size(); j++)
+                for (size_t j = 0; j < true_z[i].size(); j++)
                 {
                     CHECK(z(i, j) == true_z[i][j]);
                 }
@@ -496,9 +496,9 @@ TEST_CASE("Small data test: model 1")
 
             solver.test_vect_z_uni(1, z);
 
-            for (auto i = 0; i < true_z.size(); i++)
+            for (size_t i = 0; i < true_z.size(); i++)
             {
-                for (auto j = 0; j < true_z[i].size(); j++)
+                for (size_t j = 0; j < true_z[i].size(); j++)
                 {
                     CHECK(z(i, j) == true_z[i][j]);
                 }
@@ -568,7 +568,7 @@ TEST_CASE("Small data test: model 1")
 
             evo::matrix<float> model_rhs = solver.test_rhs();
 
-            for (auto i = 0; i < _rhs.size(); i++)
+            for (size_t i = 0; i < _rhs.size(); i++)
                 CHECK((_rhs[i]) == Approx(model_rhs[i]).margin(0.0001).epsilon(1e-3));
 
             solver.remove_model();
@@ -869,7 +869,7 @@ TEST_CASE("Small data test: model 1")
 
             solver.get_solution("cpp_solution_model_1.dat");
 
-            for (auto i = 0; i < sol.size(); i++)
+            for (size_t i = 0; i < sol.size(); i++)
                 CHECK((_sol[i]) == Approx(sol[i]).margin(0.0001).epsilon(1e-3));
 
             solver.remove_model();
@@ -918,9 +918,9 @@ TEST_CASE("Small data test: model 1")
             CHECK(in.size() == 6);
             CHECK(in[0].size() == 10);
 
-            for (auto i = 0; i < in.size(); i++)
+            for (size_t i = 0; i < in.size(); i++)
             {
-                for (auto j = 0; j < in[0].size(); j++)
+                for (size_t j = 0; j < in[0].size(); j++)
                 {
                     CHECK(in[i][j] == allele[i][j]);
                 }
@@ -937,9 +937,9 @@ TEST_CASE("Small data test: model 1")
             CHECK(in.size() == 6);
             CHECK(in[0].size() == 10);
 
-            for (auto i = 0; i < in.size(); i++)
+            for (size_t i = 0; i < in.size(); i++)
             {
-                for (auto j = 0; j < in[0].size(); j++)
+                for (size_t j = 0; j < in[0].size(); j++)
                 {
                     CHECK(in[i][j] == allele[i][j]);
                 }
@@ -960,9 +960,9 @@ TEST_CASE("Small data test: model 1")
             CHECK(in2.size() == 9);
             CHECK(in2[0].size() == 3);
 
-            for (auto i = 0; i < in2.size(); i++)
+            for (size_t i = 0; i < in2.size(); i++)
             {
-                for (auto j = 0; j < in2[0].size(); j++)
+                for (size_t j = 0; j < in2[0].size(); j++)
                 {
                     CHECK(in2[i][j] == matr[i][j]);
                 }
@@ -1045,8 +1045,8 @@ TEST_CASE("Small data test: model 1")
         {
             evo::Model model;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/z2.dat", dummy_type1); // eff_1
@@ -1147,8 +1147,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/z2.dat", dummy_type1); // eff_1
@@ -1179,9 +1179,9 @@ TEST_CASE("Small data test: model 1")
 
             solver.test_vect_z_uni(0, z);
 
-            for (auto i = 0; i < true_z.size(); i++)
+            for (size_t i = 0; i < true_z.size(); i++)
             {
-                for (auto j = 0; j < true_z[i].size(); j++)
+                for (size_t j = 0; j < true_z[i].size(); j++)
                 {
                     CHECK(z(i, j) == true_z[i][j]);
                 }
@@ -1191,9 +1191,9 @@ TEST_CASE("Small data test: model 1")
 
             solver.test_vect_z_uni(1, z);
 
-            for (auto i = 0; i < true_z.size(); i++)
+            for (size_t i = 0; i < true_z.size(); i++)
             {
-                for (auto j = 0; j < true_z[i].size(); j++)
+                for (size_t j = 0; j < true_z[i].size(); j++)
                 {
                     CHECK(z(i, j) == true_z[i][j]);
                 }
@@ -1236,8 +1236,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/x1.dat", dummy_type2); // eff_0
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_1
@@ -1266,7 +1266,7 @@ TEST_CASE("Small data test: model 1")
 
             evo::matrix<float> model_rhs = solver.test_rhs();
 
-            for (auto i = 0; i < _rhs.size(); i++)
+            for (size_t i = 0; i < _rhs.size(); i++)
                 CHECK((_rhs[i]) == Approx(model_rhs[i]).margin(0.0001).epsilon(1e-3));
 
             std::vector<float> dval = solver.test_dval();
@@ -1313,8 +1313,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/x1.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_1
@@ -1391,8 +1391,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/z2.dat", dummy_type1); // eff_1
@@ -1480,8 +1480,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/z1.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/z2.dat", dummy_type1); // eff_1
@@ -1510,7 +1510,7 @@ TEST_CASE("Small data test: model 1")
 
             evo::matrix<float> model_rhs = solver.test_rhs();
 
-            for (auto i = 0; i < _rhs.size(); i++)
+            for (size_t i = 0; i < _rhs.size(); i++)
                 CHECK((_rhs[i]) == Approx(model_rhs[i]).margin(0.0001).epsilon(1e-3));
 
             solver.remove_model();
@@ -1550,8 +1550,8 @@ TEST_CASE("Small data test: model 1")
             evo::Model model;
             evo::Pcg solver;
 
-            size_t dummy_type1;
-            float dummy_type2;
+            size_t dummy_type1 = 0;
+            float dummy_type2 = 0.0f;
 
             model.append_effect("tests/data/z2.dat", dummy_type1); // eff_0
             model.append_effect("tests/data/x1.dat", dummy_type1); // eff_1
@@ -1586,7 +1586,7 @@ TEST_CASE("Small data test: model 1")
 
             solver.get_solution("cpp_solution_model_1.dat");
 
-            for (auto i = 0; i < sol.size(); i++)
+            for (size_t i = 0; i < sol.size(); i++)
             {
                 CHECK((_sol[i]) == Approx(sol[i]).margin(0.0001).epsilon(1e-3));
                 // std::cout<<sol[i]<<"\n";
@@ -1802,7 +1802,7 @@ TEST_CASE("Small data test: model 2")
 
             solver.get_solution("cpp_solution_model_2.dat");
 
-            for (auto i = 0; i < sol.size(); i++)
+            for (size_t i = 0; i < sol.size(); i++)
                 CHECK((_sol[i]) == Approx(sol[i]).margin(0.03).epsilon(1e-3));
 
             solver.remove_model();
@@ -1933,7 +1933,7 @@ TEST_CASE("Small data test: model 3")
 
             solver.get_solution("cpp_solution_model_3.dat");
 
-            for (auto i = 0; i < sol.size(); i++)
+            for (size_t i = 0; i < sol.size(); i++)
                 CHECK((_sol[i]) == Approx(sol[i]).margin(0.003).epsilon(1e-3));
 
             solver.remove_model();
@@ -2005,7 +2005,7 @@ TEST_CASE("Small data test: model 3")
 
             solver.get_solution("cpp_solution_model_3(I).dat");
 
-            for (auto i = 0; i < sol.size(); i++)
+            for (size_t i = 0; i < sol.size(); i++)
                 CHECK((_sol[i]) == Approx(sol[i]).margin(0.003).epsilon(1e-3));
 
             solver.remove_model();
@@ -2056,8 +2056,8 @@ TEST_CASE("Small data test: model 4")
 
             model.append_observation("tests/data/model_4/obs_1.dat"); // obs := 0
 
-            size_t type1;
-            float type2;
+            size_t type1 = 0;
+            float type2 = 0.0f;
 
             model.append_effect("tests/data/model_4/obs_489_snp_100.txt", type1); // eff := 0
             model.append_effect("tests/data/model_4/fixed_1.dat", type2);          // eff := 1

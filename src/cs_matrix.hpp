@@ -3097,7 +3097,7 @@ namespace evo
                     throw std::string("Error while opening a binary file. matrix<T>::cast_fget(size_t, size_t, std::vector<std::vector<float>> &)");
                 }
 
-                size_t rows = irow[1] - irow[0] + 1;
+                //size_t rows = irow[1] - irow[0] + 1;
                 size_t cols = icol[1] - icol[0] + 1;
 
                 matrix<T> a(cols, 1);
@@ -3259,7 +3259,7 @@ namespace evo
                     throw std::string("Error while opening a binary file. matrix<T>::cast_fget(size_t, size_t, float **)");
                 }
 
-                size_t rows = irow[1] - irow[0] + 1;
+                //size_t rows = irow[1] - irow[0] + 1;
                 size_t cols = icol[1] - icol[0] + 1;
 
                 matrix<T> a(cols, 1);
@@ -4450,21 +4450,21 @@ namespace evo
         FILE *dbgFile;
         dbgFile = fopen(debug_file.c_str(), "a");
 
-        int maxRows = 20;
+        size_t maxRows = 20;
         fprintf(dbgFile, "%s", whiichMatrix.c_str());
         // fprintf (dbgFile, "\n");
         if (rectangular)
         {
             fprintf(dbgFile, "%s%s", ", Rectangular matrix, of type ", typeid(A[0]).name());
             fprintf(dbgFile, "\n\n");
-            for (auto i = 0; i < _min(maxRows, numRow); i++)
+            for (size_t i = 0; i < _min(maxRows, numRow); i++)
             {
-                for (auto j = 0; j < _min(maxRows, numCol); j++)
+                for (size_t j = 0; j < _min(maxRows, numCol); j++)
                 {
                     if (isInt)
-                        fprintf(dbgFile, "%12d", A[i * numCol + j]);
+                        fprintf(dbgFile, "%12d", (int)A[i * numCol + j]);
                     else
-                        fprintf(dbgFile, "%12.5G", A[i * numCol + j]);
+                        fprintf(dbgFile, "%12.5G", (double)A[i * numCol + j]);
                 }
                 fprintf(dbgFile, "\n");
             }
@@ -4473,14 +4473,14 @@ namespace evo
         {
             fprintf(dbgFile, "%s%s", ", symetric matrix, of type ", typeid(A[0]).name());
             fprintf(dbgFile, "\n\n");
-            for (auto i = 0; i < _min(maxRows, numRow); i++)
+            for (size_t i = 0; i < _min(maxRows, numRow); i++)
             {
-                for (auto j = 0; j <= i; j++)
+                for (size_t j = 0; j <= i; j++)
                 {
                     if (isInt)
-                        fprintf(dbgFile, "%12d", A[i * (i + 1) / 2 + j]);
+                        fprintf(dbgFile, "%12d", (int)A[i * (i + 1) / 2 + j]);
                     else
-                        fprintf(dbgFile, "%12.5G", A[i * (i + 1) / 2 + j]);
+                        fprintf(dbgFile, "%12.5G", (double)A[i * (i + 1) / 2 + j]);
                 }
                 fprintf(dbgFile, "\n");
             }

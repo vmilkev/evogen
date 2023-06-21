@@ -21,7 +21,7 @@ ifeq ($(UNAME_S),Linux)
 	CFLAGS_PYLIB := -O3 -qopenmp -DPYBIND -DMKL_ILP64 -I${MKLROOT}/include $(PYBINDINCL) -fPIC -std=c++14
 	CFLAGS_CLIB := -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -fPIC -std=c++14
 	
-	EXTRA_CFLAGS := -D UTEST
+	EXTRA_CFLAGS := -D UTEST -Wcheck -Wall -w2 -Wsign-compare
 	EXTRA_LIBFLAGS := -L$(BDIR_CLIB) -l$(APPNAME)
 	EXTRA_LIBFLAGS_2 :=
 	
