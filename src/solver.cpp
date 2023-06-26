@@ -30,9 +30,9 @@ namespace evo
         {
             model.clear();
 
-            std::vector<int>().swap(n_obs);
+            std::vector<size_t>().swap(n_obs);
 
-            std::vector<std::vector<int>>().swap(n_lev);
+            std::vector<std::vector<size_t>>().swap(n_lev);
 
             for (auto &e : z_dat)
             {
@@ -113,7 +113,7 @@ namespace evo
 
                 n_obs.push_back(model.observations[trait_obs_id].size());
 
-                std::vector<int> trait_levels;
+                std::vector<size_t> trait_levels;
 
                 for (size_t j = 0; j < n_trait_effects; j++)
                 {
@@ -562,7 +562,7 @@ namespace evo
             matrix<size_t> shape_eff = which_effects.shape();
 
             for (size_t i = 0; i < shape_eff[0]; i++)
-                which_effects(i, 0) = adj_effects_order[which_effects(i, 0)];
+                which_effects(i, 0) = (int)adj_effects_order[which_effects(i, 0)];
 
             // return model.correlated_effects[which_trait];
             return which_effects;

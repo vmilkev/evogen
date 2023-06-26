@@ -149,7 +149,7 @@ namespace evo
         {
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
             pybind11::buffer_info buf1 = var.request();
             pybind11::buffer_info buf2 = corr.request();
@@ -162,14 +162,14 @@ namespace evo
             float *ptr2 = static_cast<float *>(buf2.ptr);
             int *ptr3 = static_cast<int *>(buf3.ptr);
 
-            effects.resize(buf3.shape[0], 1);
+            _effects.resize(buf3.shape[0], 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
-                effects[i] = ptr3[i];
+                _effects[i] = ptr3[i];
 
             for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
@@ -177,8 +177,8 @@ namespace evo
             for (pybind11::ssize_t i = 0; i < buf2.shape[0]; i++)
                 correlation[i] = ptr2[i];
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             variance.fwrite();
             ;
@@ -221,7 +221,7 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
             pybind11::buffer_info buf1 = var.request();
             // pybind11::buffer_info buf2 = corr.request();
@@ -234,22 +234,22 @@ namespace evo
             // float *ptr2 = static_cast<float *>(buf2.ptr);
             int *ptr3 = static_cast<int *>(buf3.ptr);
 
-            effects.resize(buf3.shape[0], 1);
+            _effects.resize(buf3.shape[0], 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
 
             correlation.resize(1, 1);
 
             for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
-                effects[i] = ptr3[i];
+                _effects[i] = ptr3[i];
 
             for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
 
             correlation[0] = 1.0;
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             variance.fwrite();
             ;
@@ -312,7 +312,7 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
             pybind11::buffer_info buf3 = which_effects.request();
 
@@ -321,14 +321,14 @@ namespace evo
 
             int *ptr3 = static_cast<int *>(buf3.ptr);
 
-            effects.resize(buf3.shape[0], 1);
+            _effects.resize(buf3.shape[0], 1);
 
             variance.resize(lda1, lda1);
 
             correlation.resize(1, 1);
 
             for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
-                effects[i] = ptr3[i];
+                _effects[i] = ptr3[i];
 
             for (size_t i = 0; i < lda1; i++)
             {
@@ -338,8 +338,8 @@ namespace evo
 
             correlation[0] = 1.0;
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             variance.fwrite();
             ;
@@ -398,7 +398,7 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
             pybind11::buffer_info buf1 = var.request();
             // pybind11::buffer_info buf2 = corr.request();
@@ -411,14 +411,14 @@ namespace evo
             // float *ptr2 = static_cast<float *>(buf2.ptr);
             int *ptr3 = static_cast<int *>(buf3.ptr);
 
-            effects.resize(buf3.shape[0], 1);
+            _effects.resize(buf3.shape[0], 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
-                effects[i] = ptr3[i];
+                _effects[i] = ptr3[i];
 
             for (pybind11::ssize_t i = 0; i < buf1.shape[0]; i++)
                 variance[i] = ptr1[i];
@@ -429,8 +429,8 @@ namespace evo
                     correlation(i, j) = corr[i][j];
             }
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             variance.fwrite();
             ;
@@ -503,7 +503,7 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
             // pybind11::buffer_info buf1 = var.request();
             //  pybind11::buffer_info buf2 = corr.request();
@@ -516,14 +516,14 @@ namespace evo
             //  float *ptr2 = static_cast<float *>(buf2.ptr);
             int *ptr3 = static_cast<int *>(buf3.ptr);
 
-            effects.resize(buf3.shape[0], 1);
+            _effects.resize(buf3.shape[0], 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (pybind11::ssize_t i = 0; i < buf3.shape[0]; i++)
-                effects[i] = ptr3[i];
+                _effects[i] = ptr3[i];
 
             for (size_t i = 0; i < lda1; i++)
             {
@@ -537,8 +537,8 @@ namespace evo
                     correlation(i, j) = corr[i][j];
             }
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             variance.fwrite();
             ;
@@ -734,16 +734,16 @@ namespace evo
         {
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
-            effects.resize(which_effects.size(), 1);
+            _effects.resize(which_effects.size(), 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (size_t i = 0; i < which_effects.size(); i++)
-                effects[i] = which_effects[i];
+                _effects[i] = which_effects[i];
 
             for (size_t i = 0; i < var.size(); i++)
                 variance[i] = var[i];
@@ -761,8 +761,8 @@ namespace evo
             identity_correlations.push_back(false);
             identity_dimension.push_back(0);
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
         }
         catch (const std::exception &e)
         {
@@ -790,16 +790,16 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
-            effects.resize(which_effects.size(), 1);
+            _effects.resize(which_effects.size(), 1);
 
             variance.resize(lda1, lda1);
 
             correlation.resize(1, 1);
 
             for (size_t i = 0; i < which_effects.size(); i++)
-                effects[i] = which_effects[i];
+                _effects[i] = which_effects[i];
 
             for (size_t i = 0; i < var.size(); i++)
                 variance[i] = var[i];
@@ -816,8 +816,8 @@ namespace evo
             identity_correlations.push_back(true);
             identity_dimension.push_back(lda2);
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
         }
         catch (const std::exception &e)
         {
@@ -865,16 +865,16 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
-            effects.resize(which_effects.size(), 1);
+            _effects.resize(which_effects.size(), 1);
 
             variance.resize(lda1, lda1);
 
             correlation.resize(1, 1);
 
             for (size_t i = 0; i < which_effects.size(); i++)
-                effects[i] = which_effects[i];
+                _effects[i] = which_effects[i];
 
             for (size_t i = 0; i < lda1; i++)
             {
@@ -894,8 +894,8 @@ namespace evo
             identity_correlations.push_back(true);
             identity_dimension.push_back(lda2);
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             var.clear();
             var.shrink_to_fit();
@@ -946,16 +946,16 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
-            effects.resize(which_effects.size(), 1);
+            _effects.resize(which_effects.size(), 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (size_t i = 0; i < which_effects.size(); i++)
-                effects[i] = which_effects[i];
+                _effects[i] = which_effects[i];
 
             for (size_t i = 0; i < var.size(); i++)
                 variance[i] = var[i];
@@ -976,8 +976,8 @@ namespace evo
             identity_correlations.push_back(false);
             identity_dimension.push_back(0);
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             corr.clear();
             corr.shrink_to_fit();
@@ -1040,16 +1040,16 @@ namespace evo
 
             matrix<float> variance;
             matrix<float> correlation;
-            matrix<int> effects;
+            matrix<int> _effects;
 
-            effects.resize(which_effects.size(), 1);
+            _effects.resize(which_effects.size(), 1);
             variance.resize(lda1, lda1);
             // variance.rectosym();
             correlation.resize(lda2, lda2);
             // correlation.rectosym();
 
             for (size_t i = 0; i < which_effects.size(); i++)
-                effects[i] = which_effects[i];
+                _effects[i] = which_effects[i];
 
             for (size_t i = 0; i < lda1; i++)
             {
@@ -1073,8 +1073,8 @@ namespace evo
             identity_correlations.push_back(false);
             identity_dimension.push_back(0);
 
-            effects.fwrite();
-            correlated_effects.push_back(effects);
+            _effects.fwrite();
+            correlated_effects.push_back(_effects);
 
             corr.clear();
             corr.shrink_to_fit();

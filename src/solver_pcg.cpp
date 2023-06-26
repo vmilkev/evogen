@@ -12,7 +12,7 @@ namespace evo
 
             size_t n_all_levels = num_all_levels(); // number of all random effects in the model
 
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -43,7 +43,7 @@ namespace evo
 
             size_t n_all_levels = num_all_levels(); // number of all random effects in the model
 
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -249,7 +249,7 @@ namespace evo
         }
     }
 
-    matrix<float> Pcg::construct_dval(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels)
+    matrix<float> Pcg::construct_dval(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels)
     {
         try
         {
@@ -370,7 +370,7 @@ namespace evo
 
                 size_t all_levels = get_all_levels();
 
-                std::vector<int> ordered_random_levels = get_ordered_levels();
+                std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
                 std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -422,7 +422,7 @@ namespace evo
         {
             size_t n_all_levels = num_all_levels();
 
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -448,7 +448,7 @@ namespace evo
         }
     }
 
-    void Pcg::set_amatr(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels)
+    void Pcg::set_amatr(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels)
     {
         // Build coefficient matrix on disk
 
@@ -504,7 +504,7 @@ namespace evo
         }
     }
 
-    void Pcg::set_amatr(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels, bool on_mem)
+    void Pcg::set_amatr(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels, bool on_mem)
     {
         // Build coefficient matrix on memory
 
@@ -616,7 +616,7 @@ namespace evo
         }
     }
 
-    void Pcg::update_vect(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels, matrix<float> &out_vect, matrix<float> &in_vect)
+    void Pcg::update_vect(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels, matrix<float> &out_vect, matrix<float> &in_vect)
     {
         try
         {
@@ -669,7 +669,7 @@ namespace evo
         }
     }
 
-    void Pcg::jacobi_pcg(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels)
+    void Pcg::jacobi_pcg(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels)
     {
         try
         {
@@ -688,11 +688,11 @@ namespace evo
             matrix<float> Mi = construct_dval(cov_offsets, num_levels, ordered_levels); // actually, returning the inverse of dval (== Mi)
 
             // -------------------------------------------------
-            matrix<float> tVect(unknowns, 1);
+            matrix<float> tVect(unknowns, 1); // vector to keep the result of operation: A*x
 
-            update_vect(cov_offsets, num_levels, ordered_levels, tVect, sol);
+            update_vect(cov_offsets, num_levels, ordered_levels, tVect, sol); // A*x(==sol)
 
-            matrix<float> r = rhs - tVect;
+            matrix<float> r_vect = rhs - tVect; // r = b - A*x
 
             tVect.clear();
             // -------------------------------------------------
@@ -701,10 +701,10 @@ namespace evo
 
             for (size_t i = 0; i < unknowns; i++)
             {
-                d[i] = Mi[i] * r[i];
+                d[i] = Mi[i] * r_vect[i];
             }
 
-            float delta_new = v_dot_v(r, d);
+            float delta_new = v_dot_v(r_vect, d);
 
             float delta_zero = delta_new;
 
@@ -727,26 +727,26 @@ namespace evo
 
                 if (!(iterations % 50))
                 {
-                    matrix<float> tVect(unknowns, 1);
+                    matrix<float> _tVect(unknowns, 1);
 
-                    update_vect(cov_offsets, num_levels, ordered_levels, tVect, sol);
+                    update_vect(cov_offsets, num_levels, ordered_levels, _tVect, sol);
 
-                    r = rhs - tVect;
-                    tVect.clear();
+                    r_vect = rhs - _tVect;
+                    _tVect.clear();
                 }
                 else
                 {
-                    r = r - alpha * q;
+                    r_vect = r_vect - alpha * q;
                 }
 
                 matrix<float> s(unknowns, 1);
 
                 for (size_t i = 0; i < unknowns; i++)
-                    s[i] = Mi[i] * r[i];
+                    s[i] = Mi[i] * r_vect[i];
 
                 float delta_old = delta_new;
 
-                delta_new = v_dot_v(r, s);
+                delta_new = v_dot_v(r_vect, s);
 
                 if (delta_old == 0.0f)
                     throw std::string("Pcg::jacobi_pcg() => Expected division by 0.0: delta_old == 0.0!");
@@ -789,7 +789,7 @@ namespace evo
                                      size_t i_eff,
                                      std::vector<std::vector<size_t>> &cov_offsets,
                                      size_t num_levels,
-                                     std::vector<int> &ordered_levels,
+                                     std::vector<size_t> &ordered_levels,
                                      size_t i_row)
     {
         matrix<float> vect_a(1, rhs_size);
@@ -877,7 +877,7 @@ namespace evo
         return vect_a;
     }
 
-    matrix<float> Pcg::z_dot_z(size_t row, size_t vect_size, size_t i_matr, size_t j_matr, float r)
+    matrix<float> Pcg::z_dot_z(size_t row, size_t vect_size, size_t i_matr, size_t j_matr, float r_val)
     {
         matrix<float> out_vect(1, vect_size); // (1,1002) => (1, n_levels)
 
@@ -916,9 +916,9 @@ namespace evo
                 for (size_t j = 0; j < vect_dim; j++)
                     t = t + v11[0][j] * v22[0][j];
 
-                out_vect(0, i) = t * r;
+                out_vect(0, i) = t * r_val;
                 // matrix<float> res = v2 * v1; // x 1.6
-                //  out_vect(0, i) = res[0] * r;
+                //  out_vect(0, i) = res[0] * r_val;
             }
 
             delete[] v11[0];
@@ -986,7 +986,7 @@ namespace evo
         }
     }
 
-    matrix<float> Pcg::z_dot_y(size_t vect_size, size_t i_trait, size_t j_trait, float r)
+    matrix<float> Pcg::z_dot_y(size_t vect_size, size_t i_trait, size_t j_trait, float r_val)
     {
         // giving a column vector
 
@@ -1000,7 +1000,7 @@ namespace evo
             {
                 matrix<float> v1 = get_vect_z_uni(i_trait, i);
                 matrix<float> res = v1 * v2;
-                out_vect(i, 0) = res[0] * r;
+                out_vect(i, 0) = res[0] * r_val;
             }
         }
         catch (const std::exception &e)
@@ -1129,11 +1129,11 @@ namespace evo
         return levels;
     }
 
-    std::vector<int> Pcg::get_ordered_levels()
+    std::vector<size_t> Pcg::get_ordered_levels()
     {
         try
         {
-            std::vector<int> ordered_levels(num_all_levels(), 0);
+            std::vector<size_t> ordered_levels(num_all_levels(), 0);
 
             size_t olevels = 0;
 
@@ -1161,7 +1161,7 @@ namespace evo
         }
     }
 
-    std::vector<std::vector<size_t>> Pcg::get_cov_offsets(const std::vector<int> &ordered_levels)
+    std::vector<std::vector<size_t>> Pcg::get_cov_offsets(const std::vector<size_t> &ordered_levels)
     {
         /*
         %-------- Create coordinate vectors for random effect covar. blocks ------
@@ -1285,12 +1285,12 @@ namespace evo
     }
 
 #ifdef UTEST
-    matrix<float> Pcg::test_z_dot_y(size_t vect_size, size_t i_trait, size_t j_trait, float r)
+    matrix<float> Pcg::test_z_dot_y(size_t vect_size, size_t i_trait, size_t j_trait, float r_val)
     {
 
         try
         {
-            matrix<float> out_vect = z_dot_y(vect_size, i_trait, j_trait, r);
+            matrix<float> out_vect = z_dot_y(vect_size, i_trait, j_trait, r_val);
             return out_vect;
         }
         catch (const std::exception &e)
@@ -1353,11 +1353,11 @@ namespace evo
         }
     }
 
-    std::vector<int> Pcg::test_ordered_levels()
+    std::vector<size_t> Pcg::test_ordered_levels()
     {
         try
         {
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             return ordered_random_levels;
         }
@@ -1378,7 +1378,7 @@ namespace evo
     {
         try
         {
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -1407,7 +1407,7 @@ namespace evo
 
             size_t n_all_levels = num_all_levels(); // number of all random effects in the model
 
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 
@@ -1445,7 +1445,7 @@ namespace evo
         }
     }
 
-    std::vector<std::vector<float>> Pcg::construct_A(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<int> &ordered_levels)
+    std::vector<std::vector<float>> Pcg::construct_A(std::vector<std::vector<size_t>> &cov_offsets, size_t num_levels, std::vector<size_t> &ordered_levels)
     {
         try
         {
@@ -1501,7 +1501,7 @@ namespace evo
 
             size_t n_all_levels = num_all_levels(); // number of all random effects in the model
 
-            std::vector<int> ordered_random_levels = get_ordered_levels();
+            std::vector<size_t> ordered_random_levels = get_ordered_levels();
 
             std::vector<std::vector<size_t>> rcov_offsets = get_cov_offsets(ordered_random_levels);
 

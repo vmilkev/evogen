@@ -21,7 +21,8 @@ ifeq ($(UNAME_S),Linux)
 	CFLAGS_PYLIB := -O3 -qopenmp -DPYBIND -DMKL_ILP64 -I${MKLROOT}/include $(PYBINDINCL) -fPIC -std=c++14
 	CFLAGS_CLIB := -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -fPIC -std=c++14
 	
-	EXTRA_CFLAGS := -D UTEST -Wcheck -Wall -w2 -Wsign-compare
+	EXTRA_CFLAGS := -D UTEST -Wcheck -Wall -w2
+#-Wstrict-prototypes -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-variable -Wwrite-strings -Wsign-compare -Wdeprecated -Wextra-tokens -Wic-pointer -Wnon-virtual-dtor -Wp64 -Wpointer-arith -Wport -Wreorder -Wreturn-type -Wshadow
 	EXTRA_LIBFLAGS := -L$(BDIR_CLIB) -l$(APPNAME)
 	EXTRA_LIBFLAGS_2 :=
 	
@@ -102,7 +103,8 @@ $(BDIR_APP)/%.o: $(SRCDIR)/%.cpp
 
 clean:
 	@echo " Cleaning..."
-	@rm -fr $(BDIR_PYLIB) $(BDIR_CLIB) $(BDIR_TST) $(TARGET_PYLIB) $(TARGET_TEST) 2>/dev/null || true
+	@rm -fr $(BDIR_PYLIB) $(BDIR_CLIB) $(BDIR_TST) $(BDIR_APP) $(TARGET_PYLIB) $(TARGET_TEST) 2>/dev/null || true
+	@rm amatrix_* py_out_solution_model_* cpp_solution_model_* 2>/dev/null || true
 
 test:
 	@echo " Testing ..."

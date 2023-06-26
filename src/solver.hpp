@@ -27,7 +27,7 @@ namespace evo
             cor_onmem = false;
         };
 
-        ~Solver();
+        virtual ~Solver();
 
 #ifdef UTEST
         void print();
@@ -47,9 +47,9 @@ namespace evo
 
     protected:
         Model model;                             // instance of the model to be solved
-        std::vector<int> n_obs;                  // number of observations for each trait
+        std::vector<size_t> n_obs;                  // number of observations for each trait
         size_t n_trait;                             // number of traits
-        std::vector<std::vector<int>> n_lev;     // num of effects' levels for each trait
+        std::vector<std::vector<size_t>> n_lev;     // num of effects' levels for each trait
         std::vector<matrix<float>> z_dat;        // combined incidence matrix for each trait.
         std::vector<matrix<float>> y;            // Observations for each trait.
         std::vector<std::vector<Effects>> z_uni; // Combines a consecutive sets of incidense matrices.

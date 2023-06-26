@@ -25,8 +25,8 @@ int main(void)
 
         model.append_observation("tests/data/model_4/obs_1.dat"); // obs := 0
 
-        size_t type1;
-        float type2;
+        size_t type1 = 0;
+        float type2 = 0.0f;
 
         model.append_effect("tests/data/model_4/obs_489_snp_1000.txt", type1); // eff := 0
         model.append_effect("tests/data/model_4/fixed_1.dat", type2);           // eff := 1

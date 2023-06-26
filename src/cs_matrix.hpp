@@ -155,10 +155,10 @@ namespace evo
             {
                 size_t sz_vect = vect.size();
 
+                size_t sz;
+
                 if (allocated)
                 {
-                    size_t sz;
-
                     if (!compact)
                         sz = numRow * numCol;
                     else
@@ -241,14 +241,14 @@ namespace evo
 
         /* Interfaces to MKL routines */
 
-        void dotprod(double *A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB);
-        void dotprod(float *A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB);
-        void inv_rec(double *A, MKL_INT rowA, MKL_INT colA);
-        void inv_rec(float *A, MKL_INT rowA, MKL_INT colA);
-        void inv_sym(double *A, MKL_INT colA);
-        void inv_sym(float *A, MKL_INT colA);
-        void gemmt_intrf(double *A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB);
-        void gemmt_intrf(float *A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB);
+        void dotprod(double *_A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB);
+        void dotprod(float *_A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB);
+        void inv_rec(double *_A, MKL_INT rowA, MKL_INT colA);
+        void inv_rec(float *_A, MKL_INT rowA, MKL_INT colA);
+        void inv_sym(double *_A, MKL_INT colA);
+        void inv_sym(float *_A, MKL_INT colA);
+        void gemmt_intrf(double *_A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB);
+        void gemmt_intrf(float *_A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB);
 
         /* VARIABLES & CONSTANTS */
 
@@ -356,7 +356,7 @@ namespace evo
 
             if (block_size < worksize)
             {
-                block_size = C.size();
+                block_size = static_cast<unsigned int>( C.size() );
                 n_threads = 1;
             }
 
@@ -441,7 +441,7 @@ namespace evo
 
             if (block_size < worksize)
             {
-                block_size = C.size();
+                block_size = static_cast<unsigned int>( C.size() );
                 n_threads = 1;
             }
 
@@ -877,7 +877,7 @@ namespace evo
         failbit = false;
         failinfo = 0;
 
-        srand(rdtsc());
+        srand( static_cast<unsigned int>( rdtsc() ) );
         int iNum = rand() % 100000;
         binFilename = "matrix_" + std::to_string(iNum);
 
@@ -913,7 +913,7 @@ namespace evo
         failbit = false;
         failinfo = 0;
 
-        srand(rdtsc());
+        srand( static_cast<unsigned int>( rdtsc() ) );
         int iNum = rand() % 100000;
         binFilename = "matrix_" + std::to_string(iNum);
 
@@ -949,7 +949,7 @@ namespace evo
         failbit = false;
         failinfo = 0;
 
-        srand(rdtsc());
+        srand( static_cast<unsigned int>( rdtsc() ) );
         int iNum = rand() % 100000;
         binFilename = "matrix_" + std::to_string(iNum);
 
@@ -975,7 +975,7 @@ namespace evo
         failbit = false;
         failinfo = 0;
 
-        srand(rdtsc());
+        srand( static_cast<unsigned int>( rdtsc() ) );
         int iNum = rand() % 100000;
         binFilename = "matrix_" + std::to_string(iNum);
 
@@ -1034,7 +1034,7 @@ namespace evo
 
             if (block_size < worksize)
             {
-                block_size = size();
+                block_size = static_cast<unsigned int>(size());
                 n_threads = 1;
             }
 
@@ -1152,7 +1152,7 @@ namespace evo
 
             if (block_size < worksize)
             {
-                block_size = size();
+                block_size = static_cast<unsigned int>( size() );
                 n_threads = 1;
             }
 
@@ -1357,7 +1357,7 @@ namespace evo
 
         if (block_size < worksize)
         {
-            block_size = C.size();
+            block_size = static_cast<unsigned int>( C.size() );
             n_threads = 1;
         }
 
@@ -1660,7 +1660,7 @@ namespace evo
 
         if (block_size < worksize)
         {
-            block_size = C.size();
+            block_size = static_cast<unsigned int>( C.size() );
             n_threads = 1;
         }
 
@@ -1728,7 +1728,7 @@ namespace evo
 
         if (block_size < worksize)
         {
-            block_size = C.size();
+            block_size = static_cast<unsigned int>( C.size() );
             n_threads = 1;
         }
 
@@ -1742,27 +1742,27 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::gemmt_intrf(double *A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB)
+    void matrix<T>::gemmt_intrf(double *_A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB)
     {
         /*
             Interface to cblas_dgemmt routine which computes a matrix-matrix product with general matrices
             but updates only the upper or lower triangular part of the result matrix.
         */
 
-        cblas_dgemmt(CblasRowMajor, CblasLower, CblasNoTrans, CblasTrans, rowA, colA, 1.0, A, colA, A, colA, 0.0, B, colB);
+        cblas_dgemmt(CblasRowMajor, CblasLower, CblasNoTrans, CblasTrans, rowA, colA, 1.0, _A, colA, _A, colA, 0.0, B, colB);
     }
 
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::gemmt_intrf(float *A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB)
+    void matrix<T>::gemmt_intrf(float *_A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB)
     {
         /*
             Interface to cblas_sgemmt routine which computes a matrix-matrix product with general matrices
             but updates only the upper or lower triangular part of the result matrix.
         */
 
-        cblas_sgemmt(CblasRowMajor, CblasLower, CblasNoTrans, CblasTrans, rowA, colA, 1.0, A, colA, A, colA, 0.0, B, colB);
+        cblas_sgemmt(CblasRowMajor, CblasLower, CblasNoTrans, CblasTrans, rowA, colA, 1.0, _A, colA, _A, colA, 0.0, B, colB);
     }
     //===============================================================================================================
 
@@ -2058,7 +2058,7 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::dotprod(double *A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB)
+    void matrix<T>::dotprod(double *_A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB)
     {
 
         /*
@@ -2072,13 +2072,13 @@ namespace evo
          * 					const double beta, double *c, const MKL_INT ldc);
          */
 
-        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rowA, colB, colA, 1.0, A, colA, B, colB, 0.0, C, colB);
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rowA, colB, colA, 1.0, _A, colA, B, colB, 0.0, C, colB);
     }
 
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::dotprod(float *A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB)
+    void matrix<T>::dotprod(float *_A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB)
     {
 
         /*
@@ -2092,7 +2092,7 @@ namespace evo
          * 					const float beta, float *c, const MKL_INT ldc);
          */
 
-        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rowA, colB, colA, 1.0, A, colA, B, colB, 0.0, C, colB);
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rowA, colB, colA, 1.0, _A, colA, B, colB, 0.0, C, colB);
     }
 
     //===============================================================================================================
@@ -4144,7 +4144,7 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::inv_rec(double *A, MKL_INT rowA, MKL_INT colA)
+    void matrix<T>::inv_rec(double *_A, MKL_INT rowA, MKL_INT colA)
     {
         /*
             Matrix inversion. Interface to mkl routines.
@@ -4177,14 +4177,14 @@ namespace evo
         for (lapack_int i = 0; i < (row); i++)
             ipiv[i] = 1;
 
-        info = LAPACKE_dgetrf(matrix_order, row, col, A, col, ipiv);
+        info = LAPACKE_dgetrf(matrix_order, row, col, _A, col, ipiv);
         if (info != 0)
         {
             mkl_free(ipiv);
             throw std::string("Error during computation of the LU factorization of a general m-by-n matrix. matrix<T>::inv_rec(double *, MKL_INT, MKL_INT)");
         }
 
-        info = LAPACKE_dgetri(matrix_order, row, A, row, ipiv);
+        info = LAPACKE_dgetri(matrix_order, row, _A, row, ipiv);
         if (info != 0)
         {
             mkl_free(ipiv);
@@ -4197,7 +4197,7 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::inv_rec(float *A, MKL_INT rowA, MKL_INT colA)
+    void matrix<T>::inv_rec(float *_A, MKL_INT rowA, MKL_INT colA)
     {
         /*
             Matrix inversion. Interface to mkl routines.
@@ -4230,14 +4230,14 @@ namespace evo
         for (lapack_int i = 0; i < (row); i++)
             ipiv[i] = 1;
 
-        info = LAPACKE_sgetrf(matrix_order, row, col, A, col, ipiv);
+        info = LAPACKE_sgetrf(matrix_order, row, col, _A, col, ipiv);
         if (info != 0)
         {
             mkl_free(ipiv);
             throw std::string("Error during computation of the LU factorization of a general m-by-n matrix. matrix<T>::inv_rec(float *, MKL_INT, MKL_INT)");
         }
 
-        info = LAPACKE_sgetri(matrix_order, row, A, row, ipiv);
+        info = LAPACKE_sgetri(matrix_order, row, _A, row, ipiv);
         if (info != 0)
         {
             mkl_free(ipiv);
@@ -4250,7 +4250,7 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::inv_sym(double *A, MKL_INT colA)
+    void matrix<T>::inv_sym(double *_A, MKL_INT colA)
     {
         /*
             Symetric matrix inversion. Interface to mkl routines.
@@ -4262,19 +4262,19 @@ namespace evo
 
         int matrix_order = LAPACK_ROW_MAJOR;
 
-        info = LAPACKE_dpptrf(matrix_order, 'L', colA, A);
+        info = LAPACKE_dpptrf(matrix_order, 'L', colA, _A);
         if (info != 0)
         {
             failbit = true;
-            failinfo = info;
+            failinfo = (int)info;
             throw std::string("Error during computationof  the Cholesky factorization of a symmetric (Hermitian) positive-definite matrix using packed storage. matrix<T>::inv_sym(double *, MKL_INT)");
         }
 
-        info = LAPACKE_dpptri(matrix_order, 'L', colA, A);
+        info = LAPACKE_dpptri(matrix_order, 'L', colA, _A);
         if (info != 0)
         {
             failbit = true;
-            failinfo = info;
+            failinfo = (int)info;
             throw std::string("Error during computation the inverse of a packed symmetric (Hermitian) positive-definite matrix after the Cholesky factorization. matrix<T>::inv_sym(double *, MKL_INT)");
         }
     }
@@ -4282,7 +4282,7 @@ namespace evo
     //===============================================================================================================
 
     template <typename T>
-    void matrix<T>::inv_sym(float *A, MKL_INT colA)
+    void matrix<T>::inv_sym(float *_A, MKL_INT colA)
     {
         /*
             Symetric matrix inversion. Interface to mkl routines.
@@ -4294,13 +4294,13 @@ namespace evo
 
         int matrix_order = LAPACK_ROW_MAJOR;
 
-        info = LAPACKE_spptrf(matrix_order, 'L', colA, A);
+        info = LAPACKE_spptrf(matrix_order, 'L', colA, _A);
         if (info != 0)
         {
             throw std::string("Error during computationof  the Cholesky factorization of a symmetric (Hermitian) positive-definite matrix using packed storage. matrix<T>::inv_sym(float *, MKL_INT)");
         }
 
-        info = LAPACKE_spptri(matrix_order, 'L', colA, A);
+        info = LAPACKE_spptri(matrix_order, 'L', colA, _A);
         if (info != 0)
         {
             throw std::string("Error during computation the inverse of a packed symmetric (Hermitian) positive-definite matrix after the Cholesky factorization. matrix<T>::inv_sym(float *, MKL_INT)");

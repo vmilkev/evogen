@@ -146,7 +146,7 @@ TEST_CASE("Small data test: model 1")
 
     size_t n_all_levels = 4;
 
-    std::vector<int> ordered_random_levels{2, 8, 2, 8};
+    std::vector<size_t> ordered_random_levels{2, 8, 2, 8};
 
     std::vector<std::vector<size_t>> rcov_offsets{{0, 0}, {0, 2}, {0, 10}, {0, 12}, {2, 0}, {2, 2}, {2, 10}, {2, 12}, {10, 0}, {10, 2}, {10, 10}, {10, 12}, {12, 0}, {12, 2}, {12, 10}, {12, 12}};
 
@@ -781,7 +781,7 @@ TEST_CASE("Small data test: model 1")
 
             CHECK(n_all_levels_checking == n_all_levels);
 
-            std::vector<int> ordered_random_levels_checking = solver.test_ordered_levels();
+            std::vector<size_t> ordered_random_levels_checking = solver.test_ordered_levels();
 
             CHECK(ordered_random_levels_checking.size() == ordered_random_levels.size());
 
@@ -1423,7 +1423,7 @@ TEST_CASE("Small data test: model 1")
 
             CHECK(n_all_levels_checking == n_all_levels);
 
-            std::vector<int> ordered_random_levels_checking = solver.test_ordered_levels();
+            std::vector<size_t> ordered_random_levels_checking = solver.test_ordered_levels();
 
             CHECK(ordered_random_levels_checking.size() == ordered_random_levels.size());
 
@@ -1982,18 +1982,18 @@ TEST_CASE("Small data test: model 3")
             model.append_effect(x, 8, 1);  // eff := 0
             model.append_effect(z, 8, 10); // eff := 1
 
-            std::vector<int> corr_eff{1};
+            std::vector<int> _corr_eff{1};
 
-            std::vector<int> eff_trate{0, 1};
-            int obs_trate = 0;
+            std::vector<int> _eff_trate{0, 1};
+            int _obs_trate = 0;
 
             std::string identity("I");
 
-            model.append_corrstruct(iG1, 1, identity, 10, corr_eff);
-            // model.append_corrstruct(iG1, 1, corZ, 10, corr_eff);
-            // model.append_corrstruct("tests/data/model_3/iG.dat", identity, 10, corr_eff);
+            model.append_corrstruct(iG1, 1, identity, 10, _corr_eff);
+            // model.append_corrstruct(iG1, 1, corZ, 10, _corr_eff);
+            // model.append_corrstruct("tests/data/model_3/iG.dat", identity, 10, _corr_eff);
 
-            model.append_traitstruct(obs_trate, eff_trate);
+            model.append_traitstruct(_obs_trate, _eff_trate);
 
             // model.print();
 
