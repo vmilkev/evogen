@@ -1,7 +1,7 @@
 #include "solver_pcg.hpp"
 #include "model.hpp"
 
-PYBIND11_MODULE(evogen, m)
+PYBIND11_MODULE(evolm, m)
 {
     m.doc() = "pybind11 example plugin"; // Optional module docstring
 

@@ -1,4 +1,4 @@
-APPNAME := evogen
+APPNAME := evolm
 
 CXX := icpc
 SRCDIR := src
@@ -21,7 +21,7 @@ ifeq ($(UNAME_S),Linux)
 	CFLAGS_PYLIB := -O3 -qopenmp -DPYBIND -DMKL_ILP64 -I${MKLROOT}/include $(PYBINDINCL) -fPIC -std=c++14
 	CFLAGS_CLIB := -O3 -qopenmp -DMKL_ILP64 -I${MKLROOT}/include -fPIC -std=c++14
 	
-	EXTRA_CFLAGS := -D UTEST -Wcheck -Wall -w2
+	EXTRA_CFLAGS := -D UTEST -Wcheck -Wall -w3
 #-Wstrict-prototypes -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-variable -Wwrite-strings -Wsign-compare -Wdeprecated -Wextra-tokens -Wic-pointer -Wnon-virtual-dtor -Wp64 -Wpointer-arith -Wport -Wreorder -Wreturn-type -Wshadow
 	EXTRA_LIBFLAGS := -L$(BDIR_CLIB) -l$(APPNAME)
 	EXTRA_LIBFLAGS_2 :=
